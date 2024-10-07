@@ -59,15 +59,22 @@ jobs:
           chmod +x build.sh
           ./build.sh build
 
-      # 7. 安装构建好的 ninja
-      - name: Install ninja
+      # 7. 安装构建好的 ninja2
+      - name: Install ninja2
         run: |
           sudo ./build.sh install
 
-      # 8. 验证 ninja 安装
-      - name: Verify ninja installation
+      # 8. 验证 ninja2 安装
+      - name: Verify ninja2 installation
         run: |
           ninja --version
+
+      
+      - name: Run Ninja unit-test suite
+        run: |
+          cd build/bin
+          ./ninja_test
+
 
       # # 9. 克隆 re2 项目
       # - name: Clone re2 repository
