@@ -48,7 +48,7 @@
 #include "graph.h"
 #include "metrics.h"
 #include "state.h"
-#include "status.h"
+#include "status.h
 #include "subprocess.h"
 #include "util.h"
 
