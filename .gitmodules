@@ -1,0 +1,3 @@
+[submodule "cloudbuild-ninja2"]
+	path = cloudbuild-ninja2
+	url = https://github.com/ninja-cloudbuild/ninja2.git
