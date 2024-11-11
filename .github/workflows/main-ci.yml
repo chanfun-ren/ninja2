@@ -1,4 +1,4 @@
-name: ninja2-CI
+name: multi-stage-CI
 
 on:
   push:
