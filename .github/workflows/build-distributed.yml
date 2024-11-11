@@ -1,0 +1,49 @@
+name: Distributed Build
+
+on:
+  workflow_call:
+    inputs:
+      scheduler_host:
+        description: "Scheduler server host"
+        required: true
+        type: string
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # - name: Install dependencies
+      #   run: sudo apt-get install -y nfs-kernel-server
+
+      # - name: Configure NFS
+      #   run: |
+      #     echo "/home *(rw,no_root_squash,anonuid=1000,anongid=1000,insecure,async,no_subtree_check)" | sudo tee -a /etc/exports
+      #     sudo exportfs -a
+      #     sudo systemctl restart nfs-kernel-server
+
+      # - name: Download and extract re2 project
+      #   run: |
+      #     wget https://github.com/google/re2/archive/refs/tags/2021-11-01.tar.gz
+      #     tar -zxvf 2021-11-01.tar.gz
+      #     mv re2-2021-11-01 re2_sharebuild
+
+      # - name: Distributed build re2 project using ninja2
+      #   run: |
+      #     cd re2_sharebuild
+      #     mkdir -p build
+      #     cd build
+      #     cmake -G Ninja ..
+      #     ninja -s ${{ inputs.scheduler_host }}:8002 -r "$(realpath ../)"
+
+      # - name: Validate re2 build output
+      #   run: |
+      #     cd re2_sharebuild/build
+      #     ./re2_test
+      
+      - name: debug
+        run: |
+          hostname -I

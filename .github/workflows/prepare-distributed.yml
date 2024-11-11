@@ -1,0 +1,97 @@
+name: Prepare Distributed Environment
+
+on:
+  workflow_call:
+    inputs:
+      redis_host:
+        description: "Redis server host"
+        required: true
+        type: string
+      redis_port:
+        description: "Redis server port"
+        required: true
+        type: string
+      scheduler_host:
+        description: "Scheduler server host"
+        required: true
+        type: string
+
+jobs:
+  setup:
+    runs-on: ubuntu-22.04
+
+    steps:
+      # - name: Checkout repository
+      #   uses: actions/checkout@v3
+
+      # - name: Install dependencies
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y nfs-kernel-server redis-server
+
+      # - name: Configure Redis
+      #   run: |
+      #     sudo systemctl enable redis-server
+      #     sudo systemctl restart redis-server
+
+      # - name: Create necessary directories
+      #   run: mkdir -p ~/sharebuild-bin/
+
+      # - name: Download and configure scheduler
+      #   run: |
+      #     wget https://github.com/chanfun-ren/ninja2/releases/download/ninja2_ci_test/scheduler
+      #     chmod +x ./scheduler
+      #     cp ./scheduler ~/sharebuild-bin
+
+      #     sudo mkdir -p /etc/scheduler
+      #     cat <<EOF | sudo tee /etc/scheduler/config.yaml > /dev/null
+      #     redis:
+      #       host: ${{ inputs.redis_host }}
+      #       port: ${{ inputs.redis_port }}
+      #       password: ''
+      #       db: 0
+      #     taskServer:
+      #       port: 8002
+      #     license:
+      #       code: ShareBuild1234
+      #       VerifyService:
+      #         host: 106.54.183.229
+      #         port: 8004
+      #     EOF
+
+      # - name: Start scheduler
+      #   run: nohup ~/sharebuild-bin/scheduler -config /etc/scheduler/config.yaml > scheduler.log 2>&1 &
+
+      # - name: Download and configure executor
+      #   run: |
+      #     wget https://github.com/chanfun-ren/ninja2/releases/download/ninja2_ci_test/executor
+      #     chmod +x ./executor
+      #     cp ./executor ~/sharebuild-bin
+
+      #     sudo mkdir -p /etc/executor
+      #     cat <<EOF | sudo tee /etc/executor/config.yaml > /dev/null
+      #     redis:
+      #       host: ${{ inputs.redis_host }}
+      #       port: ${{ inputs.redis_port }}
+      #       password: ''
+      #       db: 0
+      #     taskServer:
+      #       port: 8003
+      #       user: $(whoami)
+      #     schedulerRegisterServer:
+      #       host: ${{ inputs.scheduler_host }}
+      #       port: 8002
+      #     EOF
+
+      # - name: Start executor
+      #   run: sudo nohup ~/sharebuild-bin/executor -config /etc/executor/config.yaml > executor.log 2>&1 &
+      
+      # - name: Display scheduler logs
+      #   run: cat scheduler.log
+
+      # - name: Display executor logs
+        # run: cat executor.log
+
+      - name: debug
+        run: |
+          hostname -I

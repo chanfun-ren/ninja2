@@ -1,0 +1,41 @@
+name: Build locally
+
+on: [workflow_call]
+
+jobs:
+  build-local:
+    runs-on: ubuntu-22.04
+    steps:
+      # - name: Build ninja2
+      #   run: |
+      #     chmod +x build.sh
+      #     ./build.sh build
+
+      # - name: Install ninja2
+      #   run: sudo ./build.sh install
+
+      # - name: Verify ninja2 installation
+      #   run: ninja --version
+
+      # - name: Clone re2 repository
+      #   run: |
+      #     wget https://github.com/google/re2/archive/refs/tags/2021-11-01.tar.gz
+      #     tar -zxvf 2021-11-01.tar.gz
+      #     mv re2-2021-11-01 re2
+
+      # - name: Local Build re2 with ninja2
+      #   run: |
+      #     cd re2
+      #     mkdir -p build
+      #     cd build
+      #     cmake -G Ninja ..
+      #     ninja
+
+      # - name: Test re2 build
+      #   run: |
+      #     cd re2/build
+      #     ./re2_test
+
+      - name: debug
+        run: |
+          hostname -I

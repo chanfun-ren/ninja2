@@ -1,0 +1,33 @@
+name: ninja2-CI
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  setup-environment:
+    uses: ./.github/workflows/setup-environment.yml
+
+  build-local:
+    needs: setup-environment
+    uses: ./.github/workflows/build-local.yml
+
+  prepare-distributed:
+    needs: setup-environment
+    uses: ./.github/workflows/prepare-distributed.yml
+    with:
+      redis_host: "localhost"
+      redis_port: "6379"
+      scheduler_host: "localhost"
+
+  distributed-build:
+    needs: [prepare-distributed, build-local]
+    uses: ./.github/workflows/build-distributed.yml
+    with:
+      scheduler_host: "localhost"
